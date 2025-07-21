@@ -3,15 +3,15 @@ import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import userRouter from "./routers/userRouter.js"
 import productRouter from "./routers/productRouter.js"
+import dotenv from "dotenv"
+dotenv.config()
 
 const app = express()
 
 
 app.use(bodyParser.json())
 
-const connectionString = "mongodb+srv://admin:123@cluster0.aaydtkx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
-
+const connectionString = process.env.MONGO_URI
 
 mongoose.connect(connectionString).then(
     ()=>{
@@ -25,7 +25,7 @@ mongoose.connect(connectionString).then(
 
 
 app.use("/users", userRouter)
-app.use("/products", productRouter)
+app.use("/product", productRouter)
 
 
 
